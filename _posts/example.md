@@ -1,5 +1,5 @@
 ---
-layout: example
+layout: post
 title: example
 date: 2020-09-15 22:10:00 +0900
 category: 문법
