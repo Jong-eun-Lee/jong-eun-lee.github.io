@@ -36,6 +36,7 @@ plugins:
   - jekyll-feed
 category_dir: category/
 tag_dir: tag/
+google_analytics: 'UA-178124929-1'
 
 # Exclude from processing.
 # The following items will not be processed, by default.
