@@ -153,14 +153,31 @@ class SinglyLinkedList:
                 return v
         return None
 
+    def remove(self, key):
+        v = self.search(key)
+        if len(self) == 0:
+            return False # 제거 실패하면 False
+        
+        if v == self.head:
+            self.popFront()
+        else:
+            prev = self.head
+            while prev.next != v:
+                prev = prev.next
+            prev.next = v.next
+            self.size -=1
+        return True # 제거 성공하면 True
+
+
+
+
+
 S = SinglyLinkedList()
 S.pushBack(2, "b")
 S.pushFront(1, "a")
 S.pushBack(100, "John")
-print(S.popBack())
+S.popBack()
 S.pushBack(4, "c")
-
-print(S.search(4))
-
+print(S)
 for x in S:
-    print(x, end=" and ")
+    print(x)
