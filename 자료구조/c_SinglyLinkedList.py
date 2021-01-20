@@ -167,17 +167,19 @@ class SinglyLinkedList:
             prev.next = v.next
             self.size -=1
         return True # 제거 성공하면 True
+        # 최악의 경우 O(n). 양방향 연결리스트에선 이 단점을 보완 가능.
 
-
+    def isEmpty(self):
+        return len(self) == 0
 
 
 
 S = SinglyLinkedList()
-S.pushBack(2, "b")
-S.pushFront(1, "a")
-S.pushBack(100, "John")
-S.popBack()
-S.pushBack(4, "c")
+S.pushBack(2)
+S.pushFront(1)
+S.pushBack(100)
+S.remove(100)
+S.pushBack(4)
 print(S)
 for x in S:
     print(x)
