@@ -45,8 +45,6 @@ class DoublyLinkedList:
     # 조건 3: a와 b 사이에 x가 없어야.
     # 6개의 링크를 바꿔야 함.
     def splice(self, a, b, x): # a, b, x는 각각 노드
-        if a == None or b == None or x == None:
-            return
         a.prev.next = b.next
         b.next.prev = a.prev        
         # a부터 b까지 cut 됨.
@@ -82,20 +80,22 @@ class DoublyLinkedList:
     # O(1)
     
     def pushFront(self, key): # 새로운 노드를 head 다음에
-        self.insertAfter(self.head, key)
+        self.insertAfter(self.head, Node(key))
         self.size += 1
     # O(1)
 
     def pushBack(self, key): # 새로운 노드를 head 전에
-        self.insertBefore(self.head, key)
+        self.insertBefore(self.head, Node(key))
         self.size += 1
     # O(1)
 
     # 탐색 연산(generator 정의했을 시의 코드)
     def search(self, key):
-        for v in self:
+        v = self.head
+        while v != self.head:
             if v.key == key:
                 return v
+            v = v.next
         return None
     # O(n)
 
@@ -157,6 +157,7 @@ class DoublyLinkedList:
         return self.head.prev
 
 D = DoublyLinkedList()
-a = Node(3)
-D.pushFront(a)
-print(D)
+D.pushBack(1)
+print(D.head.next)
+D.pushBack(2)
+print(D.head.next)
