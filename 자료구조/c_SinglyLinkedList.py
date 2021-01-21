@@ -176,6 +176,7 @@ class SinglyLinkedList:
 
 S = SinglyLinkedList()
 S.pushBack(2)
+print(S)
 S.pushFront(1)
 S.pushBack(100)
 S.remove(100)

@@ -1,4 +1,4 @@
-## DoublyLinkedList(양방향 연결리스트)
+## CircularDoublyLinkedList(원형 양방향 연결리스트)
 # 작성자: 이종은
 
 # Node class에 next link말고도
@@ -8,7 +8,6 @@
 # 최초 생성되는 빈 리스트는 head node의
 # key가 None이고, prev와 next가 자기 자신을 가리킴.
 # 여기서 head node는 dummy node. 이것의 key 값은 의미 없음. 항상 None으로.
-
 class Node:
     def __init__(self, key=None):
         self.key = key
@@ -18,9 +17,9 @@ class Node:
     def __str__(self):
         return str(self.key)
 
-class DoublyLinkedList:
+class CircularDoublyLinkedList:
     def __init__(self): # 해당 리스트는 head와 size를 가리키는 정보 가짐.
-        self.head = Node() # key와 value가 None인 dummy node 생성.
+        self.head = Node() # key가 None인 dummy node 생성.
         self.size = 0 # head node는 size에 count 안 됨.
     
     def __iter__(self):
@@ -31,8 +30,11 @@ class DoublyLinkedList:
 
     def __str__(self):
         s = ""
-        for v in self:
+        v = self.head.next
+        while v != self.head:
             s += str(v.key) + " -> "
+            v = v.next
+        s += "end"
         return s
 
     def __len__(self):
@@ -46,7 +48,7 @@ class DoublyLinkedList:
     # 6개의 링크를 바꿔야 함.
     def splice(self, a, b, x): # a, b, x는 각각 노드
         a.prev.next = b.next
-        b.next.prev = a.prev        
+        b.next.prev = a.prev
         # a부터 b까지 cut 됨.
         x.next = a
         a.prev = x
@@ -61,31 +63,35 @@ class DoublyLinkedList:
         self.splice(a, a, x)
     # O(1)
     
-    def moveBefore(self, a, x):
+    def moveBefore(self, a, x): # 노드 a를 x 전에
         self.splice(a, a, x.prev)
     # O(1)
 
     # 삽입 연산
-    def insertAfter(self, x, key):
+    def insertAfter(self, key, x):
         # key 값을 가진 새로운 노드를 만든 후 x node 다음에 집어 넣기
-        self.moveAfter(Node(key), x)
+        new = Node(key)
+        self.moveAfter(new, x)
         self.size += 1
         # prev와 next가 자기 자신을 가리키는, key 값을 가진 Node가 생성되는데,
         # 이게 x 다음으로 옮겨짐.
     # O(1)
     
-    def insertBefore(self, x, key):
-        self.moveBefore(Node(key), x)
+    def insertBefore(self, key, x):
+        new = Node(key)
+        self.moveBefore(new, x)
         self.size += 1
     # O(1)
     
     def pushFront(self, key): # 새로운 노드를 head 다음에
-        self.insertAfter(self.head, Node(key))
+        new = Node(key)
+        self.insertAfter(self.head, new)
         self.size += 1
     # O(1)
 
     def pushBack(self, key): # 새로운 노드를 head 전에
-        self.insertBefore(self.head, Node(key))
+        new = Node(key)
+        self.insertBefore(self.head, new)
         self.size += 1
     # O(1)
 
@@ -139,7 +145,7 @@ class DoublyLinkedList:
         self.size += len(L)
 
     def split(self, x): # 노드 x부터 tail node까지 떼어 새로운 리스트 만들어 return.
-        L = DoublyLinkedList()
+        L = CircularDoublyLinkedList()
         self.splice(x, self.head.prev, L.head)
         return L
 
@@ -156,8 +162,6 @@ class DoublyLinkedList:
             return None
         return self.head.prev
 
-D = DoublyLinkedList()
-D.pushBack(1)
-print(D.head.next)
-D.pushBack(2)
-print(D.head.next)
+C = CircularDoublyLinkedList()
+C.insertAfter(3, C.head)
+print(C.head.next.next)
