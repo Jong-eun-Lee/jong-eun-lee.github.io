@@ -3,9 +3,10 @@
 
 # 앞서 만든 원형 양방향 연결리스트와는 조금 다르게
 # (splice 연산 없는 등)
+# 이번엔 key 대신 element로 표기.
 class CircularDoublyLinkedBase:
     class Node:
-        __slots__ = 'element', 'prev', 'next' # __slots__ 해주는 건 메모리 절약용
+        __slots__ = "element", "prev", "next" # __slots__ 해주는 건 메모리 절약용
 
         def __init__(self, element, prev, next):
             self.element = element

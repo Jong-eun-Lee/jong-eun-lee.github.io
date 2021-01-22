@@ -23,19 +23,13 @@ class CircularDoublyLinkedList:
         self.size = 0 # head node는 size에 count 안 됨.
     
     def __iter__(self):
-        v = self.head
+        v = self.head.next
         while v != self.head:
             yield v
             v = v.next
 
     def __str__(self):
-        s = ""
-        v = self.head.next
-        while v != self.head:
-            s += str(v.key) + " <-> "
-            v = v.next
-        s += "end"
-        return s
+        return " <-> ".join(str(v) for v in self)
 
     def __len__(self):
         return self.size
@@ -160,4 +154,11 @@ class CircularDoublyLinkedList:
 
 C = CircularDoublyLinkedList()
 C.insertAfter(3, C.head)
-C.insertAfter(4, 3) # C.insertAfter(4, C.head.next)는 정상적으로 실행됨.
+C.insertAfter(4, C.search(3))
+C.insertAfter(5, C.search(4))
+C.pushBack(777)
+C.remove(C.search(777))
+C.splice(C.search(3), C.search(4), C.search(5))
+print(C)
+for v in C:
+    print(v)
