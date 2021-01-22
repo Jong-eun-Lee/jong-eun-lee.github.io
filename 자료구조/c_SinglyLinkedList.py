@@ -184,3 +184,4 @@ S.pushBack(4)
 print(S)
 for x in S:
     print(x)
+print(S.__dict__)

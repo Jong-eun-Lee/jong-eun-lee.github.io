@@ -1,11 +1,12 @@
-# 이중 연결리스트 (DoublyLinkedList)_값으로 찾는
+## 양방향 연결리스트 by 값으로 찾기
+# 작성자: 이종은
 
 class Node:
   def __init__(self, element): 
     self.element = element 
     self.next = None 
     self.previous = None 
-    
+
 class DoublyLinkedList: 
   def __init__(self): 
     self.head = Node('head') 
@@ -64,7 +65,8 @@ boo.show_reverse()
 
 
 
-# 이중 연결리스트 (DoublyLinkedList)_위치로 찾는
+## 양방향 연결리스트 by 위치로 찾기
+# 작성자: 이종은
 
 class Node: 
   def __init__(self, data): 

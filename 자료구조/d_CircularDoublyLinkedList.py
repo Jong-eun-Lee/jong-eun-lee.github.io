@@ -32,7 +32,7 @@ class CircularDoublyLinkedList:
         s = ""
         v = self.head.next
         while v != self.head:
-            s += str(v.key) + " -> "
+            s += str(v.key) + " <-> "
             v = v.next
         s += "end"
         return s
@@ -50,10 +50,10 @@ class CircularDoublyLinkedList:
         a.prev.next = b.next
         b.next.prev = a.prev
         # a부터 b까지 cut 됨.
-        x.next = a
-        a.prev = x
         b.next = x.next
         x.next.prev = b
+        x.next = a
+        a.prev = x
         # a부터 b까지 x 다음에.
     # O(1). 6개 링크만 수정해주니까.
     
@@ -70,34 +70,30 @@ class CircularDoublyLinkedList:
     # 삽입 연산
     def insertAfter(self, key, x):
         # key 값을 가진 새로운 노드를 만든 후 x node 다음에 집어 넣기
-        new = Node(key)
-        self.moveAfter(new, x)
+        self.moveAfter(Node(key), x)
         self.size += 1
         # prev와 next가 자기 자신을 가리키는, key 값을 가진 Node가 생성되는데,
         # 이게 x 다음으로 옮겨짐.
     # O(1)
     
     def insertBefore(self, key, x):
-        new = Node(key)
-        self.moveBefore(new, x)
+        self.moveBefore(Node(key), x)
         self.size += 1
     # O(1)
     
     def pushFront(self, key): # 새로운 노드를 head 다음에
-        new = Node(key)
-        self.insertAfter(self.head, new)
+        self.insertAfter(key, self.head)
         self.size += 1
     # O(1)
 
     def pushBack(self, key): # 새로운 노드를 head 전에
-        new = Node(key)
-        self.insertBefore(self.head, new)
+        self.insertBefore(key, self.head)
         self.size += 1
     # O(1)
 
-    # 탐색 연산(generator 정의했을 시의 코드)
+    # 탐색 연산
     def search(self, key):
-        v = self.head
+        v = self.head.next
         while v != self.head:
             if v.key == key:
                 return v
@@ -164,4 +160,4 @@ class CircularDoublyLinkedList:
 
 C = CircularDoublyLinkedList()
 C.insertAfter(3, C.head)
-print(C.head.next.next)
+C.insertAfter(4, 3) # C.insertAfter(4, C.head.next)는 정상적으로 실행됨.
