@@ -8,6 +8,7 @@
 # 최초 생성되는 빈 리스트는 head node의
 # key가 None이고, prev와 next가 자기 자신을 가리킴.
 # 여기서 head node는 dummy node. 이것의 key 값은 의미 없음. 항상 None으로.
+# splice 연산을 구현하여 이동, 삽입 연산 등을 만든다!
 class Node:
     def __init__(self, key=None):
         self.key = key
