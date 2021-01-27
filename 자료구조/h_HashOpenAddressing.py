@@ -1,5 +1,5 @@
 ### Hash Table 구현
-## Open Addressing - Linear Probing
+## Open Addressing - Linear Probing 방법
 # 작성자: 이종은
 
 ### 충돌 회피 방법(Collision Resolution Method)의 대표적 방법은 Open addressing과 Chaining.
@@ -10,7 +10,7 @@
 # 마지막 슬롯이 차있으면 첫 번째로 돌아가 밑으로 다시 탐색. key 값들이 연속된 특정 슬롯에 모여 있는 것을 'cluster'라고 함.
 # cluster가 많거나 그 사이즈가 크면 부정적. 탐색이나 삽입 시 충돌 이후 클러스터를 만나면 클러스터를 따라 계속 탐색해야 해서 수행 시간이 오래 걸리기 때문.
 # Quadratic probing(이동폭이 제곱수.)(ex) 충돌이 일어나면 1^2칸 옮김. 거기서 또 충돌 일어나면 최초 충돌 발생한 곳에서 2^2칸 옮김. ...) 초기 해시 값이 같으면 탐사 위치가 같아 효율성 떨어짐.
-# Double hashing은 2개의 hash function을 준비하여 하나는 최초 해시 값을 얻기 위해, 다른 하나는 충돌 시 이동폭을 얻기 위해 사용.
+# Double hashing은 2개의 hash function을 준비하여 하나는 최초 해시 값을 얻기 위해, 다른 하나는 충돌 시 이동폭을 얻기 위해 사용. 먼저 f(key)를 하고 꽉 차있으면 f(key)+g(key)로. 또 차있으면 f(key)+2*g(key)로. ...
 
 
 
@@ -31,7 +31,7 @@ class HashOpenAddressing: # Open Addressing 중 Linear Probnig
         s = "|"
         for a in self:
             if a == None:
-                b = f"{'':<5}|"
+                b = f"{'':^5}|"
             else:
                 b = f"{a:^5}|"
             s += b
@@ -154,12 +154,15 @@ print(H)
 print(H.search(10))
 print(H.findSlot(52))
 
+# Linear Probing의 성능 - set, remove, search 연산 등에 대한
+# 연산 시간에는 cluster size가 영향을 미치고, cluster size는 hash function, collision resolution method, load factor가 영향을 미침.
+# load factor는 n/m (n은 item 개수, m은 slot 개수). load factor가 작을수록 collision 덜 발생 -> cluster size 상대적으로 크지 않게 됨. 0 <= load factor < 1
+# 충돌 비율은 (collision 횟수/n).
+# hash function이 c-universal로 짜여지고, m >= 2n (최소 50% 이상 슬롯이 비어있음)이라는 조건 등이 지켜질 때 평균적으로 (최악의 경우는 cluster size가 한도 끝도 없이 커지니까) 관련 연산이 O(1).
+# 꼭 50퍼센트 이상이어야 그런 것은 아님. 특정 기준들 중 하나. 연산들이 평균적으로 O(1)에 수행되기 때문에 큰 데이터 등을 다루기에 적합.
 
-# clust 길이가 길수록 탐색, 삽입 연산 등의 수행 시간이 오래 걸림.
-# clust 길이에 영향을 미치는 것은 hash function과 collision resolution method.
-# linear probing은 꼭 좋은 방법은 아님. 충돌 발생할 때마다 clust 길이 하나 증가하기 때문.
 
-
-## oepn addressing과 대비되는 다른 충돌 회피 방법은 chaining.
-# open addressing은 한 slot당 들어갈 수 있는 entry가 하나지만 chaining은 아님.
-# chaining은 각 slot을 연결리스트로 관리.
+### Donald Knuth의 open adressing 채택시 search 성능 관련 식
+#                            linear probing           quadratic probing      
+# successful search        (1/2){1 + (1/1-LF)}       1 - ln(1-LF) - LF/2           (1/LF) * ln(1/1-LF)
+# unsuccessful search      (1/2){1 + 1/(1-LF)^2}     1/(1-LF) - ln(1-LF) - LF      (1/1-LF)
