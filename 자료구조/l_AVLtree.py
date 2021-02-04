@@ -115,7 +115,7 @@
 
 # 2^(h/2) <= Minh <= n
 # h/2 <= log2 n  
-# h <= 2 * log2 n
+# h <= 2 * log n
 # ∴ h = O(log n)
 # AVL tree: 자식 부트리 간의 높이 차 <= 1
 
@@ -137,11 +137,63 @@ class Node:
         return self.right.height if self.right is not None else 0
 
 
-
+# 높이 = max(left.child, right.child) + 1
+# AVL 조건 = abs(hl - hr) <= 1
 class BST: # 사용 (insert, deleteByMerging, deleteByCopying, search)
 # insert와 delete 할 때 height 변경될 수 있는데
 # height 정보가 변화함을 update 돼야 함.
 
+
 class AVLtree(BST): # BST 클래스 상속. BST의 하위 클래스. 모든 어트리뷰트 멤버변수, 메소드 등 다 물려 받아서 쓸 수 있음. 
-    # Adelson-Velsky & Landis (1964) 가장 오래된 균형 이진 탐색 트리
-    
+
+    def insert(self, key):
+        인서트 하고 높이 차가 1이하인 거 위배하면 조치 취해야
+        
+        부모클래스의 insert 이용하려면
+        v = super(AVLtree, self).insert(key)
+        return v
+        인서트 원래대로 해주고
+        균형 깨지면
+
+        10
+    5      15
+       7
+          9
+        9라는 게 들어오면서 5가 균형이 깨짐.
+        리밸런스 해줘야.
+        균형하는 z가 존재한다면 리밸런스 해줘야
+        rebalance(x, y, z)
+        5 7 9  z y x
+
+        경우 두 가지 -> 1회 rot 경우 or 2회 rot 경우
+    def insert(self, key): 
+        1. v = super(AVLtree, self).insert(key) O(log n)
+        2. find x, y, z(처음으로 AVL 조건 깨진 노드) v노드로부터 위로 올라가면서 x,y,z 찾아야 함 높이 h만큼 고작 O(h)
+        x가 들어오면서 z가 깨짐. 이걸 균형 맞춰주기 위해
+        3. w = rebalance(x, y, z) (w는 원래 z 위치에 있었던 노드, 리밸런스 한 후 그 노드를 돌려줌 return. 루트 노드가 하필이면 루트 노드였을 수 있으니까 z가 원래 루트였지만 새로운 노드가 새로운 루트가 될 수 있으니 그것을 반영)
+        O(1)
+        4. if w.parent == None:
+                self.root = w
+        O(1)
+
+        총 수행 시간은 O(log n)
+BST 손 봐야 하니까 그냥 상속 받지 말고 새로 해도 될 거 같은데.
+상속하면 init 없어도 됨.
+
+    # 좀 더 복잡?
+    # 균형이 깨진 곳 맞추면
+    # 그 위 부모 노드에서 균형 안 맞을 수 있음
+    # 계속 올라가면서 균형 맞추고 루트 노드까지
+    균형 맞추면 계속 파급 효과 발생해서
+    worst case에 최악 O(log n) rotations
+    높이만큼 로테이션 할 수 있음 최악의 경우 insert와 다르게
+    def delete(self, u): # u라는 노드를 지운다 하면
+        v = super(AVLtree, self).deleteByMerging(u)
+        # v는 u를 지우고 u의 부모를 return한 것
+        # p = v
+        # delete에서
+        # BST와 다르게 return 해줘야 할 게 뭐냐면 이것
+        # 지움으로써 균형이 깨질 가능성이 있는 가장 깊은 곳에 있는
+        while v != None:
+
+
