@@ -35,49 +35,49 @@
 # B.parent = z
 # 이것을 다시 left rotation 해주면 원래 모양대로 돌아간다.
 
-    def rotateRight(self, z):
-        if z == None: return
-        x = z.left
-        if x == None: return
-        b = x.right
+def rotateRight(self, z):
+    if z == None: return
+    x = z.left
+    if x == None: return
+    b = x.right
 
-        x.parent = z.parent
-        if z.parent:
-            if z.parent.left == z:
-                z.parent.left = x
-            else:
-                z.parent.right = x
-        x.right = z
-        z.parent = x
-        z.left = b
-        if b:
-            b.parent = z
-        if self.root = z:
-            self.root = x
+    x.parent = z.parent
+    if z.parent:
+        if z.parent.left == z:
+            z.parent.left = x
+        else:
+            z.parent.right = x
+    x.right = z
+    z.parent = x
+    z.left = b
+    if b:
+        b.parent = z
+    if z == self.root:
+        self.root = x
     # height에 대한 정보를 가지는 클래스를 이용한다면
     # x와 z의 height 값을 update 해줘야 한다.
 
-    def rotateLeft(self, z):
-        if z == None: return
-        x = z.right
-        if x == None: return
-        b = x.left
+def rotateLeft(self, z):
+    if z == None: return
+    x = z.right
+    if x == None: return
+    b = x.left
 
-        x.parent = z.parent
-        if z.parent:
-            if z.parent.left == z:
-                z.parent.left = x
-            else:
-                z.parent.right = x
+    x.parent = z.parent
+    if z.parent:
+        if z.parent.left == z:
+            z.parent.left = x
+        else:
+            z.parent.right = x
         
-        x.left = z
-        z.parent x
+    x.left = z
+    z.parent = x
         
-        z.right = b
-        if b: b.parent = z
+    z.right = b
+    if b: b.parent = z
 
-        if z == self.root:
-            self.root = z
+    if z == self.root:
+        self.root = z
 #===========================================================================================#
 
 ## AVL Tree (Adelson-Velsky & Landis, 1962)
@@ -113,7 +113,7 @@
 # h/2 <= log2 n  
 # h <= 2 * log n
 # ∴ h = O(log n)
-# AVL tree: 자식 부트리 간의 높이 차 <= 1
+
 
 class Node:
     def __init__(self, key, parent=None, left=None, right=None):
@@ -121,13 +121,12 @@ class Node:
         self.parent = parent
         self.left = left
         self.right = right
-        self.height = -1 # 존재하지 않는 노드의 높이를 -1이라 하자.
-        # 높이는 max(leftHeight, rightHeight) + 1 인데,
-        # 자식 노드가 없는 노드의 높이를 0(-1 + 1)으로 올바르게 계산할 수 있어 make sense.
+        self.height = -1
+        # 존재하지 않는 노드의 높이를 -1로 할 경우
+        # 자식 노드가 없는 노드의 높이를 max(-1, -1) + 1. 즉 0으로 계산할 수 있어 make sense.
     
     def __str__(self):
         return str(self.key)
-
 
 # AVL 조건: abs(leftHeight - rightHeight) <= 1
 class AVLtree:
@@ -140,7 +139,7 @@ class AVLtree:
 
     def height(self, v):
         if v == None:
-            return -1 # 노드 클래스 부분에서 설명한 것과 상통.
+            return -1
         return v.height
 
     #  z.p     =>    z.p
@@ -159,7 +158,7 @@ class AVLtree:
             else:
                 z.parent.right = x
         x.left = z
-        z.parent x
+        z.parent = x
         z.right = b
         if b: b.parent = z
         if z == self.root:
@@ -184,17 +183,17 @@ class AVLtree:
         z.left = b
         if b:
             b.parent = z
-        if self.root = z:
+        if z == self.root:
             self.root = x
         z.height = max(self.height(z.left), self.height(z.right)) + 1
         x.height = max(self.height(x.left), self.height(x.right)) + 1
         return x
 
     def bF(self, v): # Balance Factor
-        return self.height(v.left) - self.height(v.right)    
-
+        return self.height(v.left) - self.height(v.right)
+        
     def isBalanced(self, v):
-        return bf(v) <= 1
+        return abs(self.bF(v)) <= 1
 
     # rebalance case는 총 네 가지(z가 unbalanced 하다고 하자).
     # right-right case solved by "rotateLeft at z"
@@ -211,13 +210,16 @@ class AVLtree:
     # (left-right case는 rotateLeft at y 후 rotateRight at z로 해결)
     def rebalance(self, z):
         if self.bF(z) < -1: # z의 오른쪽 부트리 높이가 큰 불균형
-            self.bF(z.right) > 0: # z 불균형의 right-left case
+            if self.bF(z.right) > 0: # z 불균형의 right-left case
                 z.right = self.rotateRight(z.right)
-            z = self.rotateLeft(z)
+            w = self.rotateLeft(z)
+            return w
         elif self.bF(z) > 1:
             if self.bF(z.left) < 0: # left-right case
                 z.left = self.rotateLeft(z.left)
-            z = self.rotateRight(z)
+            w = self.rotateRight(z)
+            return w
+        else: return
 
     def findLocation(self, key):
         if self.size == 0:
@@ -243,10 +245,27 @@ class AVLtree:
             return None
 
     def insert(self, key):
+        v = self.forInsert(key)
+        while v != None:
+            if not self.isBalanced(v): # v가 불균형이면
+                z = v
+                if self.bF(z) > 0: # z의 부트리의 높이가 더 큰 쪽을 y로 함.
+                    y = z.left
+                else: y = z.right
+                if self.bF(y) > 0:
+                    x = y.left
+                else: x = y.right
+                v = self.rebalance(z)
+            w = v
+            v = v.parent
+            if v == None:
+                self.root = w
+
+    def forInsert(self, key):
         p = self.findLocation(key)
         if p != None and p.key == key:
             print("The key is already in use.")
-            return p
+            return
         else:
             v = Node(key)
             if p == None:
@@ -258,80 +277,109 @@ class AVLtree:
                 else:
                     p.right = v
             self.size += 1
-            v.height = max(self.height(z.left), self.height(z.right)) + 1
-            while w != None:
-                w = v
-                if not self.isBalanced(w):
-                    self.rebalance(w)
-                w = v.parent
-                if w.parent == None:
-                    self.root = w
+            v.height = max(self.height(v.left), self.height(v.right)) + 1
+            return v
 
-
-    # 좀 더 복잡?
-    # 균형이 깨진 곳 맞추면
-    # 그 위 부모 노드에서 균형 안 맞을 수 있음
-    # 계속 올라가면서 균형 맞추고 루트 노드까지
-    균형 맞추면 계속 파급 효과 발생해서
-    worst case에 최악 O(log n) rotations
-    높이만큼 로테이션 할 수 있음 최악의 경우 insert와 다르게
-    def delete(self, u): # u라는 노드를 지운다 하면
-        v = super(AVLtree, self).deleteByMerging(u)
-        # v는 u를 지우고 u의 부모를 return한 것
-        # p = v 그림이 오류 p = v
-        # delete에서
-        # BST와 다르게 return 해줘야 할 게 뭐냐면 이것
-        # 지움으로써 균형이 깨질 가능성이 있는 가장 깊은 곳에 있는
+    def delete(self, u):
+        v = self.deleteByCopying(u) # v는 지워낸 u의 parent
         while v != None:
-            if v is not balanced:
-                z = v # 밸런스가 깨지면 바로 그 v가 z
-                if z.left.height >= z.right.height:
+            if not self.isBalanced(v): # v가 불균형이면
+                z = v
+                if self.bF(z) > 0: # z의 부트리의 높이가 더 큰 쪽을 y로 함.
                     y = z.left
                 else: y = z.right
-
-                if y.left.height >= y.right.height:
-                    y = y.left
+                if self.bF(y) > 0:
+                    x = y.left
                 else: x = y.right
-                v = rebalance(x, y, z) # z, y, x의 경우에 따라 한 번 rot 하거나 두 번 rot
+                v = self.rebalance(z)
             w = v
-            v = v.parent # 강의 그림과 다름
-                # v
-                #   w
-                # 새로 올라간 v가 균형 깨졌으면 다시 while 돌아가서
-                # v가 z가 되고
-        # while만 다 빠져 나오면 v == None
-        # w는 v의 바로 직전 자식 노드니까 w == root
-        self.root = w
-        O(log n) # log n 높이 만큼 올라가서 상수 걸리는 회전 매 레벨 해줌
-
-    
-    
-
-
-    def insert(self, key):
-        10
-    5      15
-       7
-          9
-        9라는 게 들어오면서 5가 균형이 깨짐.
-        리밸런스 해줘야.
-        균형하는 z가 존재한다면 리밸런스 해줘야
-        rebalance(x, y, z)
-        5 7 9  z y x
-
-        경우 두 가지 -> 1회 rot 경우 or 2회 rot 경우
-    def insert(self, key): 
-        1. v = super(AVLtree, self).insert(key) O(log n)
-        2. find x, y, z(처음으로 AVL 조건 깨진 노드) v노드로부터 위로 올라가면서 x,y,z 찾아야 함 높이 h만큼 고작 O(h)
-        x가 들어오면서 z가 깨짐. 이걸 균형 맞춰주기 위해
-        3. w = rebalance(x, y, z) (w는 원래 z 위치에 있었던 노드, 리밸런스 한 후 그 노드를 돌려줌 return. 루트 노드가 하필이면 루트 노드였을 수 있으니까 z가 원래 루트였지만 새로운 노드가 새로운 루트가 될 수 있으니 그것을 반영)
-        O(1)
-        4. if w.parent == None:
+            v = v.parent
+            if v == None:
                 self.root = w
-        O(1)
 
-        총 수행 시간은 O(log n)
-BST 손 봐야 하니까 그냥 상속 받지 말고 새로 해도 될 거 같은데.
-상속하면 init 없어도 됨.
+    def deleteByCopying(self, x):
+        if x == None: return
+        l, r, p = x.left, x.right, x.parent
+        if l == None:
+            replace = r
+        else:
+            m = l
+            while m.right:
+                m = m.right
+            m.parent.right = m.left
+            if m.left:
+                m.left.parent = m.parent
+            m.right = r
+            m.left = l
+            l.parent = m
+            if r:
+                r.parent = m
+            replace = m            
+        if self.root == x:
+            if replace:
+                replace.parent = None
+            self.root = replace
+        else:
+            if p.left == x:
+                p.left = replace
+            else:
+                p.right = replace
+            if replace:
+                replace.parent = p
+        self.size -= 1
+        if p:
+            p.height = max(self.height(x.left), self.height(x.right)) + 1
+        return p
 
+    def preorder(self, v):
+        if v != None:
+            print(v.key, end=" ")
+            self.preorder(v.left)
+            self.preorder(v.right)
     
+    def inorder(self, v):
+        if v != None:
+            self.inorder(v.left)
+            print(v.key, end=" ")
+            self.inorder(v.right)
+
+    def postorder(self, v):
+        if v != None:
+            self.postorder(v.left)
+            self.postorder(v.right)
+            print(v.key, end=" ")
+
+a = AVLtree()
+a.insert(25)
+a.insert(5)
+a.insert(53)
+a.insert(1)
+a.insert(6)
+a.insert(27)
+a.insert(67)
+a.insert(26)
+a.insert(28)
+a.insert(29)
+a.insert(30)
+a.delete(a.search(30))
+
+a.preorder(a.root)
+print()
+a.inorder(a.root)
+print()
+#      25          =>         25
+#     /   \        =>        /  \
+#    5    53       =>       5   28
+#   / \   / \      =>      /\    /\
+#  1  6  27 67     =>     1  6  27 53
+#       / \        =>          /    /\
+#      26 28       =>         26   29 67
+#           \
+#           29
+### 문제점 1: 오른쪽 결과가 아닌 왼쪽으로 나옵니다.
+
+print(a.height(a.root))
+### 문제점 2: 높이가 정상적으로 계산이 안 됩니다.
+
+print(a.isBalanced(a.root))
+### 문제점 3: isBalanced가 유효하지 않습니다.

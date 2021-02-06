@@ -86,7 +86,7 @@ class BinarySearchTree:
         p = self.findLocation(key)
         if p != None and p.key == key:
             print("The key is already in tree")
-            return p
+            return
         else:
             v = Node(key)
             if p == None:
@@ -165,6 +165,8 @@ class BinarySearchTree:
         
     # 연산들이 O(h)이니 높이가 중요 (높이 등의 조건을 강제적으로 유지하도록 하는 것 -> balanced binary search tree)
 
+
+
 B = BinarySearchTree()
 B.insert(25)
 B.insert(5)
@@ -175,15 +177,23 @@ B.insert(27)
 B.insert(67)
 B.insert(26)
 B.insert(28)
-B.deleteByCopying(B.search(53))
-B.deleteByMerging(B.search(28))
+B.insert(29)
 B.preorder(B.root)
 print()
 B.inorder(B.root)
 print()
-B.postorder(B.root)
-#      25
-#     /   \
-#    5    27
-#   / \   / \
-#  1  6  26 67
+B.deleteByCopying(B.search(53)) # copying 방식 delete
+B.deleteByMerging(B.search(29)) # merging 방식 delete
+B.preorder(B.root)
+print()
+B.inorder(B.root)
+print()
+#      25          =>         25
+#     /   \        =>        /  \
+#    5    53       =>       5   27
+#   / \   / \      =>      /\    /\
+#  1  6  27 67     =>     1  6  26 28
+#       / \        =>                \
+#      26 28       =>                 67
+#           \
+#           29
