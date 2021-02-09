@@ -89,16 +89,16 @@ class Node:
                 for e in self.right:
                     yield e
     
-    def rightHeight(self):
-        if self.right:
-            return self.right.height
-        return -1 # 존재하지 않는 노드의 높이는 -1로 함.
-        # 자식이 없는 노드의 높이를 max(-1, -1) + 1
-        # 즉 0으로 계산할 수 있어 make sense.
-    
     def leftHeight(self):
         if self.left:
             return self.left.height
+        return -1 # 존재하지 않는 노드의 높이는 -1로 함.
+        # 자식이 없는 노드의 높이를 max(-1, -1) + 1
+        # 즉 0으로 계산할 수 있어 make sense.
+
+    def rightHeight(self):
+        if self.right:
+            return self.right.height
         return -1
 
 class BST:
