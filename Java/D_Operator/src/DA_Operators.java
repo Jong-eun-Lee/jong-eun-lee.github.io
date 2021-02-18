@@ -22,8 +22,8 @@ public class DA_Operators {
 		System.out.println(10 & 6); // 1010(2)와 0110(2)를 비트 논리곱해주면 0010(2), 즉 2가 나옴.
 		System.out.println(~5); // 비트 부정 연산자. 1의 보수 반환.
 		System.out.println(Integer.toBinaryString(~5));
-		System.out.println(11 >> 1); // 1011(2) 를 오른쪽으로 한 칸 시프트하여 0101(2), 즉 값 5가 나옴.
-
+		System.out.println(11 >> 1); // 1011(2) 를 오른쪽으로 한 칸 시프트하여 0101(2), 즉 값 5가 나옴. 오른쪽으로 n칸 시프트한 건 2^n으로 나눠 몫만 나온 것과 같음.
+		// 왼쪽 n칸 시프트 한 것은 2^n 곱한 것과 같음.
 	}
 
 }
