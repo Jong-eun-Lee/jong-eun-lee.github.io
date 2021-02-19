@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class EA_IfStatement {
@@ -6,7 +7,6 @@ public class EA_IfStatement {
 		// TODO Auto-generated method stub
 		Scanner s = new Scanner(System.in);
 		int a;
-		
 		System.out.printf("정수 입력: ");
 		a = s.nextInt();
 		if (a > 0) {
@@ -23,3 +23,5 @@ public class EA_IfStatement {
 	}
 
 }
+
+
