@@ -13,6 +13,7 @@ public class FB_9x9Table {
 		for (i=1; i<=9; i+=1)
 		{
 			System.out.printf("%d * %d = %d \n", dan, i, dan*i);
+			System.out.print("");
 		}
 	}
 
