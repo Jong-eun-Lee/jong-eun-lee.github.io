@@ -1,21 +1,16 @@
-import java.util.Scanner;
-
 public class FB_9x9Table {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner s = new Scanner(System.in);
-		int i;
-		int dan;
-		System.out.print("원하는 단: ");
-		dan = s.nextInt();
+		int i, j;
 		
-		for (i=1; i<=9; i+=1)
+		for (i=1; i<=9; i++)
 		{
-			System.out.printf("%d * %d = %d \n", dan, i, dan*i);
-			System.out.print("");
-			System.out.print("");
-			System.out.print("");
+			for (j=2; j<=9; j++)
+			{
+			System.out.printf("%d * %d = %2d | ", j, i, j*i);
+			}
+			System.out.println("");
 		}
 	}
 

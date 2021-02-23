@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Test {
 
 	public static void main(String[] args) {
@@ -11,6 +12,7 @@ public class Test {
 			System.out.printf("d");
 		else
 			System.out.printf("dd");
+		ch= (char) System.in.read();
 	}
 
 }
