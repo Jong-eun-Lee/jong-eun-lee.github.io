@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FD_InfLoopCircul {
+public class GA_InfLoopCirculator {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
