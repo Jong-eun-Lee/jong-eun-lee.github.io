@@ -3,8 +3,7 @@ public class GE_Return {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int result = 0;
-		int i;
+		int result = 0; int i;
 		for (i=1; i<=10; i+=1) {
 			result += i;
 		}
