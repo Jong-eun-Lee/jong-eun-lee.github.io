@@ -1,0 +1,14 @@
+package nachos.proj1;
+import nachos.threads.KThread;
+import nachos.threads.ThreadedKernel;
+public class makeThread {
+
+	public void initialize(String[] args) {
+		// make thread
+		new KThread(false);
+		ThreadedKernel.scheduler.newThreadQueue(false);
+		
+
+	}
+
+}

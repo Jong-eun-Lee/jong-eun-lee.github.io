@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="nachos.threads.KThread"/>
+    <fullyQualifiedTypeName name="nachos.threads.ThreadedKernel"/>
+</qualifiedTypeNameHistroy>

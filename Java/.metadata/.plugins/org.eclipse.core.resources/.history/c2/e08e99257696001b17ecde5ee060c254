@@ -1,0 +1,11 @@
+package nachos.proj1;
+import nachos.threads
+public class makeThread {
+
+	public static void main(String[] args) {
+		// make thread
+		new KThread(null);
+
+	}
+
+}
