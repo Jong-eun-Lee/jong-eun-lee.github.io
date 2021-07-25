@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Java(1)
-date: 2021-01-09 12:00:00 +0900
+title: Introduction
+date: 2021-01-09 12:13:03 +0900
 category: Java
 ---
 
@@ -9,7 +9,7 @@ category: Java
 <br/><br/>
 Java는 컴퓨터 프로그래밍 언어
 JDK(개발도구) + JRE(실행환경) + API(라이브러리)
-계속 버전이 업데이트 되고 있다(포스트 기준은 Java 8)
+계속 버전이 업데이트 되고 있다.
 
 ---
 # 자바의 특징
