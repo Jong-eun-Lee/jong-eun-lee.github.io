@@ -169,7 +169,7 @@ table[4] = C[1][4] + min(temp[3], table[4])
 
 # 04. 구현 코드
 
-해당 알고리즘 문제를 풀이한 코드는 [필자의 repository](https://github.com/Jong-eun-Lee/Algorithm)를 참고하기 바란다.  
+해당 알고리즘 문제를 풀이한 코드는 [필자의 repository](https://github.com/Jong-eun-Lee/DataStructure_and_Alogrithm/blob/master/Algorithm/DynamicProgrammingSol_01.py)를 참고하기 바란다.  
 독자의 편의를 위해 작성한 코드를 캡처하여 아래와 같이 올려두겠다. 
 
 ![캡처](https://user-images.githubusercontent.com/67620728/126893738-7090786c-2a0e-411a-b400-52398db9beba.PNG)  
