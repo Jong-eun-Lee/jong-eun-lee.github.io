@@ -57,3 +57,9 @@ google_analytics: 'UA-178124929-1'
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+# Math equation
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
